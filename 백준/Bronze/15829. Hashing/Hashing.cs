@@ -8,24 +8,17 @@ namespace BaekJoon
 		{
 			int n = int.Parse(Console.ReadLine());
 			string str = Console.ReadLine();
-			string[] alphs = new string[26];
 
-			long hash = 0;
-			
-			for(int i = 0; i < 26; i++)
-			{
-				alphs[i] = Convert.ToChar(97 + i).ToString();
-			}
+			const ulong M = 1234567891;
+			const ulong r = 31;
 
-			for(int i = 0; i < n; i++)
+			ulong hash = 0;
+			ulong pow = 1;
+
+			for (int i = 0; i < n; i++)
 			{
-				for(int j = 0; j < 26; j++)
-				{
-					if (str[i] == Convert.ToChar(alphs[j]))
-					{
-						hash += (j + 1) * (long)Math.Pow(31, i);
-					}
-				}
+				hash = (hash + (ulong)(str[i] - 'a' + 1) * pow) % M;
+				pow = (pow * r) % M;
 			}
 
 			Console.WriteLine(hash);
